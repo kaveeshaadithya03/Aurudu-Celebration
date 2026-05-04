@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import { io } from "socket.io-client";
 import { Link } from "react-router-dom";
 import { fetchCandidates, voteCandidate, BASE_URL } from "../services/api.js";
 
@@ -9,8 +8,6 @@ const VoteBoard = () => {
   const [message, setMessage] = useState(null);
   const [votingEndsAt, setVotingEndsAt] = useState(null);
   const [timerLabel, setTimerLabel] = useState("Loading countdown...");
-
-  const socketUrl = BASE_URL.replace(/\/api\/?$/, "");
 
   useEffect(() => {
     const loadCandidates = async () => {
@@ -51,16 +48,6 @@ const VoteBoard = () => {
     const interval = window.setInterval(updateTimer, 1000);
     return () => window.clearInterval(interval);
   }, [votingEndsAt]);
-
-  useEffect(() => {
-    const socket = io(socketUrl, { transports: ["websocket"] });
-
-    socket.on("candidateCreated", () => {
-      setMessage({ type: "info", text: "A new candidate has been submitted and is waiting for approval." });
-    });
-
-    return () => socket.disconnect();
-  }, [socketUrl]);
 
   const handleVote = async (e, candidateId) => {
     e.preventDefault();

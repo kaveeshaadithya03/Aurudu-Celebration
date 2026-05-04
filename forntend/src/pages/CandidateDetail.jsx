@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { fetchCandidateById, voteCandidate, BASE_URL } from "../services/api.js";
-import { io } from "socket.io-client";
 
 const CandidateDetail = () => {
   const { id } = useParams();
@@ -11,8 +10,6 @@ const CandidateDetail = () => {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null);
   const [timerLabel, setTimerLabel] = useState("");
-
-  const socketUrl = BASE_URL.replace(/\/api\/?$/, "");
 
   useEffect(() => {
     const loadCandidate = async () => {
@@ -48,21 +45,6 @@ const CandidateDetail = () => {
     const interval = setInterval(updateTimer, 1000);
     return () => clearInterval(interval);
   }, [votingEndsAt]);
-
-  useEffect(() => {
-    // Auto-refresh disabled as per requirements
-    /*
-    const socket = io(socketUrl, { transports: ["websocket"] });
-    socket.on("voteUpdated", (leaderboard) => {
-      const found = leaderboard.find(c => c.candidateId === id);
-      if (found) {
-        setCandidate(found);
-        setRank(leaderboard.findIndex(c => c.candidateId === id) + 1);
-      }
-    });
-    return () => socket.disconnect();
-    */
-  }, [socketUrl, id]);
 
   const handleVote = async () => {
     if (localStorage.getItem(`voted-${id}`)) {
