@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { io } from "socket.io-client";
 import {
   fetchPendingCandidates,
   updateCandidateStatus,
   fetchCandidateStats,
-  fetchEventAnalytics
+  fetchEventAnalytics,
+  BASE_URL
 } from "../services/api.js";
 
 const StaffPanel = () => {
@@ -16,6 +18,7 @@ const StaffPanel = () => {
   const [loading, setLoading] = useState(true);
   const [refreshKey, setRefreshKey] = useState(0);
 
+  const socketUrl = BASE_URL.replace(/\/api\/?$/, "");
   const token = window.localStorage.getItem("staffToken");
 
   useEffect(() => {
@@ -49,6 +52,17 @@ const StaffPanel = () => {
 
     loadDashboardData();
   }, [navigate, token, refreshKey]);
+
+  useEffect(() => {
+    if (!token) return;
+    const socket = io(socketUrl, { transports: ["websocket"] });
+
+    socket.on("candidateCreated", () => setRefreshKey(prev => prev + 1));
+    socket.on("voteUpdated", () => setRefreshKey(prev => prev + 1));
+    socket.on("candidateStatus", () => setRefreshKey(prev => prev + 1));
+
+    return () => socket.disconnect();
+  }, [socketUrl, token]);
 
   const handleAction = async (candidateId, status) => {
     try {
@@ -95,7 +109,7 @@ const StaffPanel = () => {
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
              </div>
              <h3 style={{ fontSize: '1.5rem', marginTop: '1rem' }}>Candidate Management</h3>
-             <p style={{ fontSize: '0.9rem' }}>Voting leaderboard, search ID, and disqualification tools.</p>
+             <p style={{ fontSize: '0.9rem' }}>Real-time leaderboard, search ID, and disqualification tools.</p>
              <span className="explore-link">Access Voting Records →</span>
           </div>
         </Link>
