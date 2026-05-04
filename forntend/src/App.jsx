@@ -19,7 +19,7 @@ const WelcomeModal = ({ onClose }) => {
         <img src={welcomeImg} alt="Welcome" className="welcome-img" />
         <h2 className="page-title" style={{ fontSize: '1.8rem', marginBottom: '1rem' }}>Ayubowan!</h2>
         <p className="page-copy" style={{ marginBottom: '1.5rem' }}>
-          Welcome to the Wasantha Muwadora 2026 Aurudu Celebration. Join us for a digital festival of tradition and joy.
+          Welcome to Wasantha Udanaya 2026. Join us for a digital festival of tradition and joy.
         </p>
         <button className="primary" onClick={onClose} style={{ width: '100%' }}>
           Let's Begin
@@ -72,8 +72,8 @@ function App() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <img src={logoImg} alt="Logo" style={{ height: '50px', width: 'auto' }} />
             <div>
-              <p className="brand-label">Wasantha Muwadora</p>
-              <p className="brand-subtitle">Aurudu Celebration 2026</p>
+              <p className="brand-label">Wasantha Udanaya</p>
+              <p className="brand-subtitle">Wasantha Udanaya 2026</p>
             </div>
           </div>
           <button className="menu-toggle" onClick={() => setMenuOpen((open) => !open)}>
@@ -136,7 +136,7 @@ function App() {
         </main>
 
         <footer className="app-footer">
-          <p>© 2026 Aurudu Celebration | Built for mobile-first entry and voting</p>
+          <p>© 2026 Wasantha Udanaya | Built for mobile-first entry and voting</p>
         </footer>
       </div>
     </BrowserRouter>

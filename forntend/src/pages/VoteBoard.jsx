@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { io } from "socket.io-client";
 import { Link } from "react-router-dom";
-import { fetchCandidates, voteCandidate, BASE_URL } from "../services/api.js";
+import { fetchCandidates, voteCandidate } from "../services/api.js";
 
 const VoteBoard = () => {
   const [candidates, setCandidates] = useState([]);
@@ -9,8 +8,6 @@ const VoteBoard = () => {
   const [message, setMessage] = useState(null);
   const [votingEndsAt, setVotingEndsAt] = useState(null);
   const [timerLabel, setTimerLabel] = useState("Loading countdown...");
-
-  const socketUrl = BASE_URL.replace(/\/api\/?$/, "");
 
   useEffect(() => {
     const loadCandidates = async () => {
@@ -52,17 +49,6 @@ const VoteBoard = () => {
     return () => window.clearInterval(interval);
   }, [votingEndsAt]);
 
-  useEffect(() => {
-    const socket = io(socketUrl, { transports: ["websocket"] });
-    socket.on("voteUpdated", (updated) => setCandidates(updated));
-    socket.on("candidateStatus", ({ leaderboard }) => setCandidates(leaderboard));
-    socket.on("candidateCreated", () => {
-      setMessage({ type: "info", text: "A new candidate has been submitted and is waiting for approval." });
-    });
-
-    return () => socket.disconnect();
-  }, [socketUrl]);
-
   const handleVote = async (e, candidateId) => {
     e.preventDefault();
     e.stopPropagation();
@@ -72,9 +58,12 @@ const VoteBoard = () => {
     }
 
     try {
-      await voteCandidate(candidateId);
+      const response = await voteCandidate(candidateId);
       localStorage.setItem(`voted-${candidateId}`, "true");
       setMessage({ type: "success", text: "Vote recorded. Thank you for voting!" });
+
+      // Update local state for immediate feedback
+      setCandidates(prev => prev.map(c => c.candidateId === candidateId ? { ...c, votes: c.votes + 1 } : c));
     } catch (error) {
       setMessage({ type: "error", text: error.response?.data?.error || "Unable to submit vote." });
     }
@@ -116,8 +105,8 @@ const VoteBoard = () => {
   return (
     <section>
       <div className="card hero-section" style={{ padding: '2rem 1rem' }}>
-        <h1 className="page-title">Live Voting Board</h1>
-        <p className="page-copy">Votes update in real time. Choose your favorite New Year Prince and Princess.</p>
+        <h1 className="page-title">Voting Board</h1>
+        <p className="page-copy">Choose your favorite New Year Prince and Princess.</p>
         <div className="status-pill" style={{ marginTop: '1rem', padding: '0.8rem 1.5rem', fontSize: '1rem' }}>
           {timerLabel}
         </div>

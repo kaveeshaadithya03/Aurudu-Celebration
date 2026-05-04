@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { io } from "socket.io-client";
 import {
   fetchPendingCandidates,
   updateCandidateStatus,
   fetchCandidateStats,
-  fetchEventAnalytics,
-  BASE_URL
+  fetchEventAnalytics
 } from "../services/api.js";
 
 const StaffPanel = () => {
@@ -18,7 +16,6 @@ const StaffPanel = () => {
   const [loading, setLoading] = useState(true);
   const [refreshKey, setRefreshKey] = useState(0);
 
-  const socketUrl = BASE_URL.replace(/\/api\/?$/, "");
   const token = window.localStorage.getItem("staffToken");
 
   useEffect(() => {
@@ -53,17 +50,6 @@ const StaffPanel = () => {
     loadDashboardData();
   }, [navigate, token, refreshKey]);
 
-  useEffect(() => {
-    if (!token) return;
-    const socket = io(socketUrl, { transports: ["websocket"] });
-
-    socket.on("candidateCreated", () => setRefreshKey(prev => prev + 1));
-    socket.on("voteUpdated", () => setRefreshKey(prev => prev + 1));
-    socket.on("candidateStatus", () => setRefreshKey(prev => prev + 1));
-
-    return () => socket.disconnect();
-  }, [socketUrl, token]);
-
   const handleAction = async (candidateId, status) => {
     try {
       await updateCandidateStatus(candidateId, status, token);
@@ -87,7 +73,7 @@ const StaffPanel = () => {
       <header className="card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem', padding: '2rem' }}>
         <div>
           <h1 className="page-title" style={{ margin: 0, fontSize: '2.5rem' }}>Staff Overview</h1>
-          <p className="page-copy" style={{ marginBottom: 0 }}>Digital Management Suite for Wasantha Muwadora 2026</p>
+          <p className="page-copy" style={{ marginBottom: 0 }}>Digital Management Suite for Wasantha Udanaya 2026</p>
         </div>
         <div style={{ display: 'flex', gap: '1rem' }}>
           <button className="secondary-btn" onClick={() => setRefreshKey(k => k + 1)} style={{ width: 'auto', padding: '0.8rem 1.5rem', background: 'rgba(245, 190, 126, 0.05)', border: '1px solid var(--gold)', color: 'var(--gold)', borderRadius: '14px', cursor: 'pointer', fontWeight: '600' }}>Refresh Data</button>
@@ -109,7 +95,7 @@ const StaffPanel = () => {
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
              </div>
              <h3 style={{ fontSize: '1.5rem', marginTop: '1rem' }}>Candidate Management</h3>
-             <p style={{ fontSize: '0.9rem' }}>Real-time leaderboard, search ID, and disqualification tools.</p>
+             <p style={{ fontSize: '0.9rem' }}>Voting leaderboard, search ID, and disqualification tools.</p>
              <span className="explore-link">Access Voting Records →</span>
           </div>
         </Link>

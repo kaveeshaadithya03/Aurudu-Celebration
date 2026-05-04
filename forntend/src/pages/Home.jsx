@@ -33,9 +33,9 @@ const Home = () => {
         </div>
         <div className="hero-content">
           <h1 className="page-title main-hero-title">Ayubowan</h1>
-          <p className="hero-subtitle">Sinhala & Tamil New Year 2026</p>
+          <p className="hero-subtitle">Wasantha Udanaya 2026</p>
           <p className="page-copy hero-text" style={{ color: 'var(--text-main)', opacity: 1, fontWeight: 500 }}>
-            Experience the vibrant spirit of the Bak season. A digital home for your favorite Aurudu traditions, contests, and celebrations.
+            Experience the vibrant spirit of the Bak season. A digital home for Wasantha Udanaya traditions, contests, and celebrations.
           </p>
         </div>
       </div>

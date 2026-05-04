@@ -67,7 +67,7 @@ const CandidateForm = () => {
           </svg>
         </div>
         <h1 className="page-title">Prince / Princess Application</h1>
-        <p className="page-copy">Step into the spotlight. Submit your profile for the Aurudu Kumara/Kumariya competition.</p>
+        <p className="page-copy">Step into the spotlight. Submit your profile for the Wasantha Udanaya Prince / Princess competition.</p>
 
         <form className="input-group" onSubmit={handleSubmit}>
           <label>
