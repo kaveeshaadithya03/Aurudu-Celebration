@@ -477,8 +477,8 @@ input[type="checkbox"] {
 
 .mandala-container {
   position: relative;
-  width: min(250px, 50vw);
-  height: min(250px, 50vw);
+  width: min(350px, 50vw);
+  height: min(350px, 50vw);
   z-index: 1;
   pointer-events: none;
 }
