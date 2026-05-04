@@ -24,15 +24,17 @@ const Home = () => {
         </svg>
       </div>
 
-      <div className="hero-section" style={{ padding: '5rem 1rem' }}>
-        <div className="mandala-container" style={{ width: '500px', height: '500px' }}>
-          <img src={spinningImg} alt="Spinning Ornament" className="spinning-img" style={{ filter: 'drop-shadow(0 0 20px rgba(245, 190, 126, 0.4))' }} />
+      <div className="hero-section">
+        <div className="mandala-container">
+          <img src={spinningImg} alt="Ornament" className="spinning-img rotating" />
         </div>
-        <h1 className="page-title main-hero-title">Ayubowan</h1>
-        <p className="hero-subtitle">Sinhala & Tamil New Year 2026</p>
-        <p className="page-copy hero-text">
-          A celebration of tradition, grace, and joy. Join us in welcoming the season of new beginnings through our digital festival hub.
-        </p>
+        <div className="hero-content">
+          <h1 className="page-title main-hero-title">Ayubowan</h1>
+          <p className="hero-subtitle">Sinhala & Tamil New Year 2026</p>
+          <p className="page-copy hero-text">
+            A celebration of tradition, grace, and joy. Join us in welcoming the season of new beginnings through our digital festival hub.
+          </p>
+        </div>
       </div>
 
       <div className="action-grid">
