@@ -147,16 +147,16 @@ h1, h2, h3, .brand-label {
 
 .app-menu {
   position: fixed;
-  top: 70px;
+  top: 700px;
   left: 0;
   right: 0;
   background: rgba(26, 8, 8, 0.98);
-  padding: 1.5rem;
+  padding: 10.5rem;
   display: flex;
   flex-direction: column;
-  gap: 100rem;
+  gap: 1rem;
   z-index: 90;
-  max-height: 0;
+  max-height: 100;
   overflow: hidden;
   transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border-bottom: var(--glass-border);
