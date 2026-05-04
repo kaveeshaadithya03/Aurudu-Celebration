@@ -470,15 +470,15 @@ input[type="checkbox"] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 3rem;
   position: relative;
   overflow: hidden;
 }
 
 .mandala-container {
   position: relative;
-  width: min(350px, 70vw);
-  height: min(350px, 70vw);
+  width: min(250px, 50vw);
+  height: min(250px, 50vw);
   z-index: 1;
   pointer-events: none;
 }

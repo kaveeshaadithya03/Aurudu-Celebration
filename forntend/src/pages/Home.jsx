@@ -26,7 +26,7 @@ const Home = () => {
 
       <div className="hero-section">
         <div className="mandala-container">
-          <img src={spinningImg} alt="Ornament" className="spinning-img rotating" />
+          <img src={spinningImg} alt="Ornament" className="spinning-img" />
         </div>
         <div className="hero-content">
           <h1 className="page-title main-hero-title">Ayubowan</h1>
