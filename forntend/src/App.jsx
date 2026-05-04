@@ -26,6 +26,26 @@ const WelcomeModal = ({ onClose }) => {
   );
 };
 
+const FallingPetals = () => {
+  return (
+    <div className="petals-container">
+      {[...Array(15)].map((_, i) => (
+        <div
+          key={i}
+          className="petal"
+          style={{
+            left: `${Math.random() * 100}%`,
+            width: `${Math.random() * 15 + 10}px`,
+            height: `${Math.random() * 15 + 10}px`,
+            animationDuration: `${Math.random() * 10 + 10}s`,
+            animationDelay: `${Math.random() * 5}s`,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -43,6 +63,7 @@ function App() {
     <BrowserRouter>
       <div className="app-shell">
         <div className="starfield"></div>
+        <FallingPetals />
         {showModal && <WelcomeModal onClose={() => setShowModal(false)} />}
         <header className="app-header">
           <div>
