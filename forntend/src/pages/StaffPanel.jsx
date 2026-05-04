@@ -5,7 +5,8 @@ import {
   fetchPendingCandidates,
   updateCandidateStatus,
   fetchCandidateStats,
-  fetchEventAnalytics
+  fetchEventAnalytics,
+  BASE_URL
 } from "../services/api.js";
 
 const StaffPanel = () => {
@@ -17,7 +18,7 @@ const StaffPanel = () => {
   const [loading, setLoading] = useState(true);
   const [refreshKey, setRefreshKey] = useState(0);
 
-  const socketUrl = import.meta.env.VITE_API_URL?.replace(/\/api\/?$/, "") || "http://localhost:5000";
+  const socketUrl = BASE_URL.replace(/\/api\/?$/, "");
   const token = window.localStorage.getItem("staffToken");
 
   useEffect(() => {

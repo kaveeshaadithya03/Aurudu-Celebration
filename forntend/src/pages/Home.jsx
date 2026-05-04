@@ -28,9 +28,6 @@ const Home = () => {
       </div>
 
       <div className="hero-section">
-        <div style={{ marginBottom: '1rem' }}>
-          <img src={logoImg} alt="Logo" style={{ height: '100px', width: 'auto' }} className="floating-element" />
-        </div>
         <div className="mandala-container">
           <img src={spinningImg} alt="Ornament" className="spinning-img floating-element" />
         </div>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { fetchCandidateById, voteCandidate } from "../services/api.js";
+import { fetchCandidateById, voteCandidate, BASE_URL } from "../services/api.js";
 import { io } from "socket.io-client";
 
 const CandidateDetail = () => {
@@ -12,7 +12,7 @@ const CandidateDetail = () => {
   const [message, setMessage] = useState(null);
   const [timerLabel, setTimerLabel] = useState("");
 
-  const socketUrl = import.meta.env.VITE_API_URL?.replace(/\/api\/?$/, "") || "http://localhost:5000";
+  const socketUrl = BASE_URL.replace(/\/api\/?$/, "");
 
   useEffect(() => {
     const loadCandidate = async () => {

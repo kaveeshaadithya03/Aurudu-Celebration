@@ -16,12 +16,16 @@ const io = new Server(server, {
   cors: {
     origin: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
   },
 });
 
 connectDb();
 
-app.use(cors({ origin: true }));
+app.use(cors({
+  origin: true,
+  credentials: true
+}));
 app.use(express.json());
 
 app.get("/api/ping", (req, res) => {

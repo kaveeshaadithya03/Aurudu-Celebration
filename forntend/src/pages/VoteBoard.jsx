@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { io } from "socket.io-client";
 import { Link } from "react-router-dom";
-import { fetchCandidates, voteCandidate } from "../services/api.js";
+import { fetchCandidates, voteCandidate, BASE_URL } from "../services/api.js";
 
 const VoteBoard = () => {
   const [candidates, setCandidates] = useState([]);
@@ -10,7 +10,7 @@ const VoteBoard = () => {
   const [votingEndsAt, setVotingEndsAt] = useState(null);
   const [timerLabel, setTimerLabel] = useState("Loading countdown...");
 
-  const socketUrl = import.meta.env.VITE_API_URL?.replace(/\/api\/?$/, "") || "http://localhost:5000";
+  const socketUrl = BASE_URL.replace(/\/api\/?$/, "");
 
   useEffect(() => {
     const loadCandidates = async () => {
