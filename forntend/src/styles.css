@@ -163,7 +163,7 @@ h1, h2, h3, .brand-label {
 }
 
 .app-menu.open {
-  max-height: 400px;
+  max-height: 200px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.8);
 }
 
