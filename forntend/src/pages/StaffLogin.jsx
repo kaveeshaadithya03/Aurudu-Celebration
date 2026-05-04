@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { staffLogin } from "../services/api.js";
+import logoImg from "../images/logo.png";
 
 const StaffLogin = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -27,6 +28,9 @@ const StaffLogin = () => {
   return (
     <section>
       <div className="form-panel">
+        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+          <img src={logoImg} alt="Logo" style={{ height: '80px', width: 'auto' }} />
+        </div>
         <h1 className="page-title">Staff Login</h1>
         <p className="page-copy">Use a staff account to approve or reject candidate submissions and see the full candidate list.</p>
 

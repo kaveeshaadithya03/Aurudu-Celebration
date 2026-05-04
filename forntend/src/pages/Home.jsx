@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import spinningImg from "../images/4.png";
+import logoImg from "../images/logo.png";
 
 const LiyawelaOrnament = ({ className }) => (
   <svg className={`liyawela-corner ${className}`} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -27,6 +28,9 @@ const Home = () => {
       </div>
 
       <div className="hero-section">
+        <div style={{ marginBottom: '1rem' }}>
+          <img src={logoImg} alt="Logo" style={{ height: '100px', width: 'auto' }} className="floating-element" />
+        </div>
         <div className="mandala-container">
           <img src={spinningImg} alt="Ornament" className="spinning-img floating-element" />
         </div>
