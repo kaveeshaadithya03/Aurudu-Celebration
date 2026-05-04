@@ -122,7 +122,7 @@ const StaffPanel = () => {
           <h1 className="page-title">Staff Dashboard</h1>
           <p className="page-copy" style={{ marginBottom: 0 }}>Review and moderate candidate applications.</p>
         </div>
-        <div style={{ display: 'flex', gap: '1rem' }}>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
           <button className="secondary-btn" onClick={handleRefresh} style={{ width: 'auto', padding: '0.6rem 1.2rem', background: 'rgba(245, 190, 126, 0.1)', border: '1px solid var(--gold)', color: 'var(--gold)', borderRadius: '12px', cursor: 'pointer' }}>Refresh</button>
           <button className="primary" onClick={handleLogout} style={{ width: 'auto', padding: '0.6rem 1.2rem' }}>Logout</button>
         </div>
