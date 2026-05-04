@@ -154,7 +154,7 @@ h1, h2, h3, .brand-label {
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 100rem;
   z-index: 90;
   max-height: 0;
   overflow: hidden;
@@ -163,7 +163,7 @@ h1, h2, h3, .brand-label {
 }
 
 .app-menu.open {
-  max-height: 5000px;
+  max-height: 400px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.8);
 }
 
