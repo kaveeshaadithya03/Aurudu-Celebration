@@ -13,8 +13,6 @@ import welcomeImg from "./images/3.jpeg";
 import logoImg from "./images/logo.png";
 
 const WelcomeModal = ({ onClose }) => {
-
-const WelcomeModal = ({ onClose }) => {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="welcome-modal" onClick={(e) => e.stopPropagation()}>
