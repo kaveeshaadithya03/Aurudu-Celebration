@@ -1,8 +1,10 @@
 import express from "express";
 import Registration from "../models/Registration.js";
+import { protectStaff } from "../utils/authMiddleware.js";
 
 const router = express.Router();
 
+// Public registration
 router.post("/", async (req, res) => {
   try {
     const { participantId, name, contact, batch, gender, events } = req.body;
@@ -35,12 +37,52 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+// Staff: Get all registrations or search by name
+router.get("/", protectStaff, async (req, res) => {
   try {
-    const list = await Registration.find().sort({ createdAt: -1 });
+    const { search } = req.query;
+    let query = {};
+    if (search) {
+      query = { name: { $regex: search, $options: "i" } };
+    }
+    const list = await Registration.find(query).sort({ createdAt: -1 });
     return res.json(list);
   } catch (error) {
     return res.status(500).json({ error: "Unable to load registrations." });
+  }
+});
+
+// Staff: Get event participation analytics
+router.get("/analytics", protectStaff, async (req, res) => {
+  try {
+    const registrations = await Registration.find();
+    const eventCounts = {};
+
+    registrations.forEach(reg => {
+      reg.events.forEach(event => {
+        eventCounts[event] = (eventCounts[event] || 0) + 1;
+      });
+    });
+
+    // Convert to sorted array
+    const sortedAnalytics = Object.entries(eventCounts)
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count);
+
+    return res.json(sortedAnalytics);
+  } catch (error) {
+    return res.status(500).json({ error: "Unable to load analytics." });
+  }
+});
+
+// Staff: Delete a registration
+router.delete("/:id", protectStaff, async (req, res) => {
+  try {
+    const deleted = await Registration.findByIdAndDelete(req.params.id);
+    if (!deleted) return res.status(404).json({ error: "Registration not found." });
+    return res.json({ message: "Registration deleted successfully." });
+  } catch (error) {
+    return res.status(500).json({ error: "Unable to delete registration." });
   }
 });
 

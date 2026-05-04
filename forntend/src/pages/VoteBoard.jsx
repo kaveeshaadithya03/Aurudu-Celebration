@@ -80,15 +80,44 @@ const VoteBoard = () => {
     }
   };
 
-  const sortedCandidates = useMemo(() => {
-    return [...candidates].sort((a, b) => b.votes - a.votes);
-  }, [candidates]);
+  const princes = useMemo(() =>
+    candidates.filter(c => c.role === "Prince").sort((a, b) => b.votes - a.votes),
+    [candidates]
+  );
+
+  const princesses = useMemo(() =>
+    candidates.filter(c => c.role === "Princess").sort((a, b) => b.votes - a.votes),
+    [candidates]
+  );
+
+  const CandidateCard = ({ candidate, index }) => (
+    <Link to={`/candidate/${candidate.candidateId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+      <article className="vote-card">
+        <span className="rank-badge">Rank #{index + 1}</span>
+        {candidate.profilePhotoUrl && <img className="profile-photo" src={candidate.profilePhotoUrl} alt={candidate.name} />}
+        <h2>{candidate.name}</h2>
+        <p className="category-label">{candidate.role} • Batch {candidate.batch}</p>
+        <div className="vote-count">{candidate.votes} Votes</div>
+        <p className="page-copy" style={{ fontSize: '0.85rem', minHeight: '3em' }}>
+          {candidate.description || "Traditional competition participant."}
+        </p>
+        <button
+          className="vote-button"
+          type="button"
+          onClick={(e) => handleVote(e, candidate.candidateId)}
+          disabled={Date.now() > (votingEndsAt?.getTime() || 0) || localStorage.getItem(`voted-${candidate.candidateId}`)}
+        >
+          {localStorage.getItem(`voted-${candidate.candidateId}`) ? "Voted" : "Cast Vote"}
+        </button>
+      </article>
+    </Link>
+  );
 
   return (
     <section>
       <div className="card hero-section" style={{ padding: '2rem 1rem' }}>
         <h1 className="page-title">Live Voting Board</h1>
-        <p className="page-copy">Votes update in real time. The candidate list is sorted from highest vote count to lowest.</p>
+        <p className="page-copy">Votes update in real time. Choose your favorite New Year Prince and Princess.</p>
         <div className="status-pill" style={{ marginTop: '1rem', padding: '0.8rem 1.5rem', fontSize: '1rem' }}>
           {timerLabel}
         </div>
@@ -104,35 +133,34 @@ const VoteBoard = () => {
         <div className="card" style={{ textAlign: 'center' }}>
           <p>Loading candidates...</p>
         </div>
-      ) : sortedCandidates.length === 0 ? (
-        <div className="card" style={{ textAlign: 'center' }}>
-          <p>No approved candidates are available for voting yet.</p>
-        </div>
       ) : (
-        <div className="vote-card-grid">
-          {sortedCandidates.map((candidate, index) => (
-            <Link key={candidate.candidateId} to={`/candidate/${candidate.candidateId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-              <article className="vote-card">
-                <span className="rank-badge">Rank #{index + 1}</span>
-                {candidate.profilePhotoUrl && <img className="profile-photo" src={candidate.profilePhotoUrl} alt={candidate.name} />}
-                <h2>{candidate.name}</h2>
-                <p className="category-label">{candidate.role} • Batch {candidate.batch}</p>
-                <div className="vote-count">{candidate.votes} Votes</div>
-                <p className="page-copy" style={{ fontSize: '0.85rem', minHeight: '3em' }}>
-                  {candidate.description || "Traditional competition participant."}
-                </p>
-                <button
-                  className="vote-button"
-                  type="button"
-                  onClick={(e) => handleVote(e, candidate.candidateId)}
-                  disabled={Date.now() > (votingEndsAt?.getTime() || 0) || localStorage.getItem(`voted-${candidate.candidateId}`)}
-                >
-                  {localStorage.getItem(`voted-${candidate.candidateId}`) ? "Voted" : "Cast Vote"}
-                </button>
-              </article>
-            </Link>
-          ))}
-        </div>
+        <>
+          <div className="management-section" style={{ marginBottom: '4rem' }}>
+            <h2 className="brand-label" style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '2rem', color: 'var(--gold)' }}>New Year Princes</h2>
+            {princes.length === 0 ? (
+              <p style={{ textAlign: 'center', opacity: 0.5 }}>No approved Prince candidates yet.</p>
+            ) : (
+              <div className="vote-card-grid">
+                {princes.map((candidate, index) => (
+                  <CandidateCard key={candidate.candidateId} candidate={candidate} index={index} />
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="management-section">
+            <h2 className="brand-label" style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '2rem', color: 'var(--gold)' }}>New Year Princesses</h2>
+            {princesses.length === 0 ? (
+              <p style={{ textAlign: 'center', opacity: 0.5 }}>No approved Princess candidates yet.</p>
+            ) : (
+              <div className="vote-card-grid">
+                {princesses.map((candidate, index) => (
+                  <CandidateCard key={candidate.candidateId} candidate={candidate} index={index} />
+                ))}
+              </div>
+            )}
+          </div>
+        </>
       )}
     </section>
   );

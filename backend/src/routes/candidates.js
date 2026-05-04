@@ -32,9 +32,18 @@ const createCandidatesRouter = (io) => {
 
   router.post("/", upload.single("profilePhoto"), async (req, res) => {
     try {
-const { candidateId, name, contact, batch, role, age, description } = req.body;
-    if (!candidateId || !name || !contact || !batch || !role || !age) {
+      const { candidateId, name, contact, batch, role, age, description } = req.body;
+      if (!candidateId || !name || !contact || !batch || !role || !age) {
         return res.status(400).json({ error: "All required candidate fields must be provided." });
+      }
+
+      // Check if candidate already exists (including rejected)
+      const existing = await Candidate.findOne({ candidateId });
+      if (existing) {
+        if (existing.status === "rejected") {
+          return res.status(403).json({ error: "This Student ID has been disqualified and cannot register again." });
+        }
+        return res.status(409).json({ error: "A candidate with this Student ID is already registered." });
       }
 
       if (!/^\d{10}$/.test(contact)) {
@@ -91,6 +100,25 @@ const { candidateId, name, contact, batch, role, age, description } = req.body;
       return res.json({ candidates, votingEndsAt });
     } catch (error) {
       return res.status(500).json({ error: "Unable to load candidates." });
+    }
+  });
+
+  router.get("/stats", protectStaff, async (req, res) => {
+    try {
+      const topPrincesses = await Candidate.find({ role: "Princess", status: "approved" }).sort({ votes: -1, createdAt: 1 }).limit(3);
+      const topPrinces = await Candidate.find({ role: "Prince", status: "approved" }).sort({ votes: -1, createdAt: 1 }).limit(3);
+
+      const princessCount = await Candidate.countDocuments({ role: "Princess", status: "approved" });
+      const princeCount = await Candidate.countDocuments({ role: "Prince", status: "approved" });
+
+      return res.json({
+        topPrincesses,
+        topPrinces,
+        princessCount,
+        princeCount
+      });
+    } catch (error) {
+      return res.status(500).json({ error: "Unable to load candidate statistics." });
     }
   });
 

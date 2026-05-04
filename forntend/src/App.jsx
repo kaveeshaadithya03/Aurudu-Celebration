@@ -7,7 +7,12 @@ import VoteBoard from "./pages/VoteBoard";
 import StaffLogin from "./pages/StaffLogin";
 import StaffPanel from "./pages/StaffPanel";
 import CandidateDetail from "./pages/CandidateDetail";
+import CandidateVoteManagement from "./pages/CandidateVoteManagement";
+import EventRegistrationManagement from "./pages/EventRegistrationManagement";
 import welcomeImg from "./images/3.jpeg";
+import logoImg from "./images/logo.png";
+
+const WelcomeModal = ({ onClose }) => {
 
 const WelcomeModal = ({ onClose }) => {
   return (
@@ -66,9 +71,12 @@ function App() {
         <FallingPetals />
         {showModal && <WelcomeModal onClose={() => setShowModal(false)} />}
         <header className="app-header">
-          <div>
-            <p className="brand-label">Wasantha Muwadora</p>
-            <p className="brand-subtitle">Aurudu Celebration 2026</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <img src={logoImg} alt="Logo" style={{ height: '50px', width: 'auto' }} />
+            <div>
+              <p className="brand-label">Wasantha Muwadora</p>
+              <p className="brand-subtitle">Aurudu Celebration 2026</p>
+            </div>
           </div>
           <button className="menu-toggle" onClick={() => setMenuOpen((open) => !open)}>
             <span />
@@ -124,6 +132,8 @@ function App() {
             <Route path="/candidate/:id" element={<CandidateDetail />} />
             <Route path="/staff" element={<StaffLogin />} />
             <Route path="/staff/panel" element={<StaffPanel />} />
+            <Route path="/staff/candidates" element={<CandidateVoteManagement />} />
+            <Route path="/staff/registrations" element={<EventRegistrationManagement />} />
           </Routes>
         </main>
 

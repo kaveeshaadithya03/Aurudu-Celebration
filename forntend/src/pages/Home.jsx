@@ -45,7 +45,9 @@ const Home = () => {
           <div className="action-card-content">
             <div className="icon-wrapper floating-element" style={{ background: 'rgba(179, 57, 57, 0.2)', borderColor: 'var(--vermillion)' }}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path>
+                <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+                <path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855"></path>
               </svg>
             </div>
             <span className="category-label" style={{ color: 'var(--vermillion)' }}>Contestants</span>
@@ -60,9 +62,8 @@ const Home = () => {
           <div className="action-card-content">
             <div className="icon-wrapper floating-element" style={{ background: 'rgba(224, 162, 78, 0.2)', borderColor: 'var(--gold)' }}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"></path>
-                <path d="M4 6v12c0 1.1.9 2 2 2h14v-4"></path>
-                <path d="M18 12a2 2 0 0 0-2 2c0 1.1.9 2 2 2h4v-4h-4z"></path>
+                <path d="M12 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+                <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
               </svg>
             </div>
             <span className="category-label">Contestants</span>
