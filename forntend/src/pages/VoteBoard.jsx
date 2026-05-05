@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { fetchCandidates, voteCandidate, BASE_URL } from "../services/api.js";
+import { fetchCandidates, voteCandidate } from "../services/api.js";
 
 const CandidateCard = ({ candidate, index, onVote, votingEndsAt }) => (
   <Link to={`/candidate/${candidate.candidateId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -25,46 +25,75 @@ const CandidateCard = ({ candidate, index, onVote, votingEndsAt }) => (
   </Link>
 );
 
+const CountdownTimer = ({ timeLeft, ended }) => {
+  if (ended) return <div className="status-pill">Voting has ended.</div>;
+  if (!timeLeft) return <div className="status-pill">Loading countdown...</div>;
+
+  return (
+    <div className="timer-container">
+      <div className="timer-box">
+        <div className="timer-value">{timeLeft.days}</div>
+        <div className="timer-label">Days</div>
+      </div>
+      <div className="timer-box">
+        <div className="timer-value">{timeLeft.hours}</div>
+        <div className="timer-label">Hours</div>
+      </div>
+      <div className="timer-box">
+        <div className="timer-value">{timeLeft.minutes}</div>
+        <div className="timer-label">Mins</div>
+      </div>
+      <div className="timer-box">
+        <div className="timer-value">{timeLeft.seconds}</div>
+        <div className="timer-label">Secs</div>
+      </div>
+    </div>
+  );
+};
+
 const VoteBoard = () => {
   const [candidates, setCandidates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null);
   const [votingEndsAt, setVotingEndsAt] = useState(null);
-  const [timerLabel, setTimerLabel] = useState("Loading countdown...");
+  const [timeLeft, setTimeLeft] = useState(null);
+  const [isEnded, setIsEnded] = useState(false);
+
+  const loadCandidates = useCallback(async (showLoading = true) => {
+    if (showLoading) setLoading(true);
+    try {
+      const data = await fetchCandidates();
+      setCandidates(data.candidates || data);
+      if (data.votingEndsAt) {
+        setVotingEndsAt(new Date(data.votingEndsAt));
+      }
+    } catch (error) {
+      setMessage({ type: "error", text: "Unable to load voting board." });
+    } finally {
+      if (showLoading) setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    const loadCandidates = async () => {
-      setLoading(true);
-      try {
-        const data = await fetchCandidates();
-        setCandidates(data.candidates || data);
-        if (data.votingEndsAt) {
-          setVotingEndsAt(new Date(data.votingEndsAt));
-        }
-      } catch (error) {
-        setMessage({ type: "error", text: "Unable to load voting board." });
-      } finally {
-        setLoading(false);
-      }
-    };
-
     loadCandidates();
-  }, []);
+  }, [loadCandidates]);
 
   useEffect(() => {
     if (!votingEndsAt) return;
     const updateTimer = () => {
       const diff = votingEndsAt.getTime() - Date.now();
       if (diff <= 0) {
-        setTimerLabel("Voting has ended.");
+        setIsEnded(true);
         return;
       }
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      setTimerLabel(`${days}d ${hours}h ${minutes}m ${seconds}s remaining`);
+      setIsEnded(false);
+      setTimeLeft({
+        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((diff / (1000 * 60)) % 60),
+        seconds: Math.floor((diff / 1000) % 60)
+      });
     };
 
     updateTimer();
@@ -84,6 +113,8 @@ const VoteBoard = () => {
       await voteCandidate(candidateId);
       localStorage.setItem(`voted-${candidateId}`, "true");
       setMessage({ type: "success", text: "Vote recorded. Thank you for voting!" });
+      // Refresh candidates to show updated vote counts
+      await loadCandidates(false);
     } catch (error) {
       setMessage({ type: "error", text: error.response?.data?.error || "Unable to submit vote." });
     }
@@ -104,9 +135,7 @@ const VoteBoard = () => {
       <div className="card hero-section" style={{ padding: '2rem 1rem' }}>
         <h1 className="page-title">Voting Board</h1>
         <p className="page-copy">Choose your favorite New Year Prince and Princess.</p>
-        <div className="status-pill" style={{ marginTop: '1rem', padding: '0.8rem 1.5rem', fontSize: '1rem' }}>
-          {timerLabel}
-        </div>
+        <CountdownTimer timeLeft={timeLeft} ended={isEnded} />
       </div>
 
       {message && (
