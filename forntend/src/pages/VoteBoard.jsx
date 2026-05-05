@@ -264,14 +264,14 @@ const VoteBoard = () => {
               onClick={() => document.getElementById('princes-section')?.scrollIntoView({ behavior: 'smooth' })}
               style={{ background: 'rgba(245, 190, 126, 0.15)', borderColor: 'var(--gold)' }}
             >
-              Prince Selection
+              අවුරුදු කුමරා තේරීම
             </button>
             <button
               className="nav-btn"
               onClick={() => document.getElementById('princesses-section')?.scrollIntoView({ behavior: 'smooth' })}
               style={{ background: 'rgba(245, 190, 126, 0.15)', borderColor: 'var(--gold)' }}
             >
-              Princess Selection
+              අවුරුදු කුමරිය තේරීම
             </button>
           </div>
         </div>
@@ -292,12 +292,12 @@ const VoteBoard = () => {
           <div id="princes-section" className="management-section" style={{ marginBottom: '5rem', scrollMarginTop: '100px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1.5rem', marginBottom: '3rem' }}>
               <div style={{ height: '2px', flex: 1, background: 'linear-gradient(to right, transparent, var(--gold))', opacity: 0.4 }}></div>
-              <h2 className="brand-label" style={{ textAlign: 'center', fontSize: '2.5rem', margin: 0, color: 'var(--gold)' }}>New Year Princes</h2>
+              <h2 className="brand-label" style={{ textAlign: 'center', fontSize: '2.5rem', margin: 0, color: 'var(--gold)' }}>අවුරුදු කුමරා</h2>
               <div style={{ height: '2px', flex: 1, background: 'linear-gradient(to left, transparent, var(--gold))', opacity: 0.4 }}></div>
             </div>
 
             {princes.length === 0 ? (
-              <p style={{ textAlign: 'center', opacity: 0.5, fontStyle: 'italic' }}>No approved Prince candidates yet.</p>
+              <p style={{ textAlign: 'center', opacity: 0.5, fontStyle: 'italic' }}>තවමත් අයදුම්පත් නොමැත.</p>
             ) : (
               <div className="vote-card-grid">
                 {princes.map((candidate, index) => (
@@ -316,12 +316,12 @@ const VoteBoard = () => {
           <div id="princesses-section" className="management-section" style={{ scrollMarginTop: '100px', paddingBottom: '3rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1.5rem', marginBottom: '3rem' }}>
               <div style={{ height: '2px', flex: 1, background: 'linear-gradient(to right, transparent, var(--gold))', opacity: 0.4 }}></div>
-              <h2 className="brand-label" style={{ textAlign: 'center', fontSize: '2.5rem', margin: 0, color: 'var(--gold)' }}>New Year Princesses</h2>
+              <h2 className="brand-label" style={{ textAlign: 'center', fontSize: '2.5rem', margin: 0, color: 'var(--gold)' }}>අවුරුදු කුමරිය</h2>
               <div style={{ height: '2px', flex: 1, background: 'linear-gradient(to left, transparent, var(--gold))', opacity: 0.4 }}></div>
             </div>
 
             {princesses.length === 0 ? (
-              <p style={{ textAlign: 'center', opacity: 0.5, fontStyle: 'italic' }}>No approved Princess candidates yet.</p>
+              <p style={{ textAlign: 'center', opacity: 0.5, fontStyle: 'italic' }}>තවමත් අයදුම්පත් නොමැත.</p>
             ) : (
               <div className="vote-card-grid">
                 {princesses.map((candidate, index) => (

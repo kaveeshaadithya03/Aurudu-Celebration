@@ -66,8 +66,8 @@ const CandidateForm = () => {
             <circle cx="12" cy="16" r="1.5" fill="var(--deep-maroon)" />
           </svg>
         </div>
-        <h1 className="page-title">Prince / Princess Application</h1>
-        <p className="page-copy">Step into the spotlight. Submit your profile for the Wasantha Udanaya Prince / Princess competition.</p>
+        <h1 className="page-title">අවුරුදු කුමරා / කුමරිය අයදුම්පත</h1>
+        <p className="page-copy">වසන්ත උදානය අවුරුදු කුමරා / කුමරිය තරඟාවලිය සඳහා ඔබගේ අයදුම්පත මෙතැනින් ඉදිරිපත් කරන්න.</p>
 
         <form className="input-group" onSubmit={handleSubmit}>
           <label>
@@ -101,10 +101,10 @@ const CandidateForm = () => {
               />
             </label>
             <label>
-              Role
+              අංශය
               <select value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })} required>
-                <option value="Prince">Prince</option>
-                <option value="Princess">Princess</option>
+                <option value="Prince">අවුරුදු කුමරා</option>
+                <option value="Princess">අවුරුදු කුමරිය</option>
               </select>
             </label>
           </div>

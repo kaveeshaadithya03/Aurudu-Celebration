@@ -73,7 +73,7 @@ function App() {
             <img src={logoImg} alt="Logo" style={{ height: '50px', width: 'auto' }} />
             <div>
               <p className="brand-label">Wasantha Udanaya</p>
-              <p className="brand-subtitle">Wasantha Udanaya 2026</p>
+              <p className="brand-subtitle">avurudu celebration 2026</p>
             </div>
           </div>
           <button className="menu-toggle" onClick={() => setMenuOpen((open) => !open)}>
@@ -102,7 +102,7 @@ function App() {
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}>
               <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path>
             </svg>
-            Prince/Princess Apply
+            අවුරුදු කුමරා/කුමරිය අයදුම්පත
           </Link>
           <Link to="/vote" onClick={() => setMenuOpen(false)}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}>

@@ -124,12 +124,12 @@ const StaffPanel = () => {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
         <div className="card" style={{ margin: 0, padding: '2rem', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: '-20px', right: '-20px', width: '100px', height: '100px', background: 'var(--gold)', opacity: 0.05, borderRadius: '50%' }}></div>
-          <p className="category-label" style={{ letterSpacing: '2px' }}>Approved Princes</p>
+          <p className="category-label" style={{ letterSpacing: '2px' }}>අනුමත වූ අවුරුදු කුමරා</p>
           <h2 style={{ fontSize: '4rem', color: 'var(--gold)', margin: '0.5rem 0', fontWeight: '800' }}>{stats?.princeCount || 0}</h2>
         </div>
         <div className="card" style={{ margin: 0, padding: '2rem', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: '-20px', right: '-20px', width: '100px', height: '100px', background: 'var(--gold)', opacity: 0.05, borderRadius: '50%' }}></div>
-          <p className="category-label" style={{ letterSpacing: '2px' }}>Approved Princesses</p>
+          <p className="category-label" style={{ letterSpacing: '2px' }}>අනුමත වූ අවුරුදු කුමරිය</p>
           <h2 style={{ fontSize: '4rem', color: 'var(--gold)', margin: '0.5rem 0', fontWeight: '800' }}>{stats?.princessCount || 0}</h2>
         </div>
         <div className="card" style={{ margin: 0, padding: '2rem', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
@@ -143,7 +143,7 @@ const StaffPanel = () => {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))', gap: '2.5rem', marginBottom: '3rem' }}>
         {/* Top 3 Princes */}
         <div className="staff-card" style={{ margin: 0, padding: '2rem', borderRadius: '32px' }}>
-          <h2 className="brand-label" style={{ marginBottom: '2rem', fontSize: '1.4rem', color: 'var(--gold)' }}>Top Voted Princes</h2>
+          <h2 className="brand-label" style={{ marginBottom: '2rem', fontSize: '1.4rem', color: 'var(--gold)' }}>වැඩිම මනාප ලැබූ අවුරුදු කුමරා</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
             {stats?.topPrinces.map((c, i) => (
               <div key={c.candidateId} style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', background: 'rgba(255,255,255,0.03)', padding: '1rem', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.05)' }}>
@@ -155,17 +155,17 @@ const StaffPanel = () => {
                 </div>
                 <div style={{ textAlign: 'right', background: 'rgba(245, 190, 126, 0.1)', padding: '0.5rem 1rem', borderRadius: '12px' }}>
                   <p style={{ margin: 0, fontWeight: '900', color: 'var(--gold)', fontSize: '1.2rem' }}>{c.votes}</p>
-                  <p style={{ margin: 0, fontSize: '0.6rem', fontWeight: 'bold', textTransform: 'uppercase', opacity: 0.7 }}>Votes</p>
+                  <p style={{ margin: 0, fontSize: '0.6rem', fontWeight: 'bold', textTransform: 'uppercase', opacity: 0.7 }}>මනාප</p>
                 </div>
               </div>
             ))}
-            {stats?.topPrinces.length === 0 && <p style={{ textAlign: 'center', opacity: 0.5 }}>No approved prince candidates.</p>}
+            {stats?.topPrinces.length === 0 && <p style={{ textAlign: 'center', opacity: 0.5 }}>අනුමත වූ අයදුම්පත් නොමැත.</p>}
           </div>
         </div>
 
         {/* Top 3 Princesses */}
         <div className="staff-card" style={{ margin: 0, padding: '2rem', borderRadius: '32px' }}>
-          <h2 className="brand-label" style={{ marginBottom: '2rem', fontSize: '1.4rem', color: 'var(--gold)' }}>Top Voted Princesses</h2>
+          <h2 className="brand-label" style={{ marginBottom: '2rem', fontSize: '1.4rem', color: 'var(--gold)' }}>වැඩිම මනාප ලැබූ අවුරුදු කුමරිය</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
             {stats?.topPrincesses.map((c, i) => (
               <div key={c.candidateId} style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', background: 'rgba(255,255,255,0.03)', padding: '1rem', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.05)' }}>
@@ -177,11 +177,11 @@ const StaffPanel = () => {
                 </div>
                 <div style={{ textAlign: 'right', background: 'rgba(245, 190, 126, 0.1)', padding: '0.5rem 1rem', borderRadius: '12px' }}>
                   <p style={{ margin: 0, fontWeight: '900', color: 'var(--gold)', fontSize: '1.2rem' }}>{c.votes}</p>
-                  <p style={{ margin: 0, fontSize: '0.6rem', fontWeight: 'bold', textTransform: 'uppercase', opacity: 0.7 }}>Votes</p>
+                  <p style={{ margin: 0, fontSize: '0.6rem', fontWeight: 'bold', textTransform: 'uppercase', opacity: 0.7 }}>මනාප</p>
                 </div>
               </div>
             ))}
-            {stats?.topPrincesses.length === 0 && <p style={{ textAlign: 'center', opacity: 0.5 }}>No approved princess candidates.</p>}
+            {stats?.topPrincesses.length === 0 && <p style={{ textAlign: 'center', opacity: 0.5 }}>අනුමත වූ අයදුම්පත් නොමැත.</p>}
           </div>
         </div>
       </div>

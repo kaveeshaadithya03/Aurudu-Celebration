@@ -106,7 +106,7 @@ const CandidateVoteManagement = () => {
       {/* Princes Section */}
       <section className="management-section" style={{ marginBottom: '4rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-           <h2 className="brand-label" style={{ margin: 0, fontSize: '2rem' }}>New Year Princes</h2>
+           <h2 className="brand-label" style={{ margin: 0, fontSize: '2rem' }}>අවුරුදු කුමරා</h2>
            <div style={{ height: '2px', flex: 1, background: 'linear-gradient(90deg, var(--gold), transparent)', opacity: 0.3 }}></div>
         </div>
 
@@ -149,14 +149,14 @@ const CandidateVoteManagement = () => {
               ))}
             </tbody>
           </table>
-          {princes.length === 0 && <p style={{ textAlign: 'center', padding: '3rem', opacity: 0.5, fontStyle: 'italic' }}>No prince candidates found matching search.</p>}
+          {princes.length === 0 && <p style={{ textAlign: 'center', padding: '3rem', opacity: 0.5, fontStyle: 'italic' }}>සෙවුමට ගැළපෙන අයදුම්පත් නොමැත.</p>}
         </div>
       </section>
 
       {/* Princesses Section */}
       <section className="management-section">
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-           <h2 className="brand-label" style={{ margin: 0, fontSize: '2rem' }}>New Year Princesses</h2>
+           <h2 className="brand-label" style={{ margin: 0, fontSize: '2rem' }}>අවුරුදු කුමරිය</h2>
            <div style={{ height: '2px', flex: 1, background: 'linear-gradient(90deg, var(--gold), transparent)', opacity: 0.3 }}></div>
         </div>
 
@@ -199,7 +199,7 @@ const CandidateVoteManagement = () => {
               ))}
             </tbody>
           </table>
-          {princesses.length === 0 && <p style={{ textAlign: 'center', padding: '3rem', opacity: 0.5, fontStyle: 'italic' }}>No princess candidates found matching search.</p>}
+          {princesses.length === 0 && <p style={{ textAlign: 'center', padding: '3rem', opacity: 0.5, fontStyle: 'italic' }}>සෙවුමට ගැළපෙන අයදුම්පත් නොමැත.</p>}
         </div>
       </section>
 
