@@ -2,6 +2,29 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchCandidates, voteCandidate, BASE_URL } from "../services/api.js";
 
+const CandidateCard = ({ candidate, index, onVote, votingEndsAt }) => (
+  <Link to={`/candidate/${candidate.candidateId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+    <article className="vote-card">
+      <span className="rank-badge">Rank #{index + 1}</span>
+      {candidate.profilePhotoUrl && <img className="profile-photo" src={candidate.profilePhotoUrl} alt={candidate.name} />}
+      <h2>{candidate.name}</h2>
+      <p className="category-label">{candidate.role} • Batch {candidate.batch}</p>
+      <div className="vote-count">{candidate.votes} Votes</div>
+      <p className="page-copy" style={{ fontSize: '0.85rem', minHeight: '3em' }}>
+        {candidate.description || "Traditional competition participant."}
+      </p>
+      <button
+        className="vote-button"
+        type="button"
+        onClick={(e) => onVote(e, candidate.candidateId)}
+        disabled={Date.now() > (votingEndsAt?.getTime() || 0) || localStorage.getItem(`voted-${candidate.candidateId}`)}
+      >
+        {localStorage.getItem(`voted-${candidate.candidateId}`) ? "Voted" : "Cast Vote"}
+      </button>
+    </article>
+  </Link>
+);
+
 const VoteBoard = () => {
   const [candidates, setCandidates] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -76,29 +99,6 @@ const VoteBoard = () => {
     [candidates]
   );
 
-  const CandidateCard = ({ candidate, index }) => (
-    <Link to={`/candidate/${candidate.candidateId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-      <article className="vote-card">
-        <span className="rank-badge">Rank #{index + 1}</span>
-        {candidate.profilePhotoUrl && <img className="profile-photo" src={candidate.profilePhotoUrl} alt={candidate.name} />}
-        <h2>{candidate.name}</h2>
-        <p className="category-label">{candidate.role} • Batch {candidate.batch}</p>
-        <div className="vote-count">{candidate.votes} Votes</div>
-        <p className="page-copy" style={{ fontSize: '0.85rem', minHeight: '3em' }}>
-          {candidate.description || "Traditional competition participant."}
-        </p>
-        <button
-          className="vote-button"
-          type="button"
-          onClick={(e) => handleVote(e, candidate.candidateId)}
-          disabled={Date.now() > (votingEndsAt?.getTime() || 0) || localStorage.getItem(`voted-${candidate.candidateId}`)}
-        >
-          {localStorage.getItem(`voted-${candidate.candidateId}`) ? "Voted" : "Cast Vote"}
-        </button>
-      </article>
-    </Link>
-  );
-
   return (
     <section>
       <div className="card hero-section" style={{ padding: '2rem 1rem' }}>
@@ -128,7 +128,13 @@ const VoteBoard = () => {
             ) : (
               <div className="vote-card-grid">
                 {princes.map((candidate, index) => (
-                  <CandidateCard key={candidate.candidateId} candidate={candidate} index={index} />
+                  <CandidateCard
+                    key={candidate.candidateId}
+                    candidate={candidate}
+                    index={index}
+                    onVote={handleVote}
+                    votingEndsAt={votingEndsAt}
+                  />
                 ))}
               </div>
             )}
@@ -141,7 +147,13 @@ const VoteBoard = () => {
             ) : (
               <div className="vote-card-grid">
                 {princesses.map((candidate, index) => (
-                  <CandidateCard key={candidate.candidateId} candidate={candidate} index={index} />
+                  <CandidateCard
+                    key={candidate.candidateId}
+                    candidate={candidate}
+                    index={index}
+                    onVote={handleVote}
+                    votingEndsAt={votingEndsAt}
+                  />
                 ))}
               </div>
             )}

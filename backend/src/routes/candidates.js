@@ -86,7 +86,6 @@ const createCandidatesRouter = (io) => {
       });
 
       console.log(`NEW CANDIDATE CREATED: ${candidate.name} (${candidate.candidateId})`);
-      io.emit("candidateCreated", candidate.toObject());
       return res.status(201).json(candidate);
     } catch (error) {
       console.error("Error creating candidate:", error.message);
@@ -168,8 +167,6 @@ const createCandidatesRouter = (io) => {
 
       candidate.votes += 1;
       await candidate.save();
-      const leaderboard = await Candidate.find({ status: "approved" }).sort({ votes: -1, createdAt: 1 });
-      io.emit("voteUpdated", leaderboard.map(c => c.toObject()));
       return res.json(candidate);
     } catch (error) {
       console.error(error);
@@ -198,10 +195,6 @@ const createCandidatesRouter = (io) => {
       }
 
       console.log(`UPDATE SUCCESS: ${candidate.name} is now ${candidate.status}`);
-
-      const leaderboard = await Candidate.find({ status: "approved" }).sort({ votes: -1, createdAt: 1 });
-      const leaderboardPlain = leaderboard.map(c => c.toObject());
-      io.emit("candidateStatus", { candidate: candidate.toObject(), leaderboard: leaderboardPlain });
 
       return res.json(candidate);
     } catch (error) {

@@ -71,7 +71,7 @@ const CandidateVoteManagement = () => {
     <div className="app-main" style={{ maxWidth: '1100px' }}>
       <header style={{ marginBottom: '3rem', textAlign: 'center' }}>
         <h1 className="page-title">Candidate Moderation</h1>
-        <p className="page-copy">Monitor live votes and manage competitor eligibility.</p>
+        <p className="page-copy">Monitor voting records and manage competitor eligibility.</p>
       </header>
 
       {message && (

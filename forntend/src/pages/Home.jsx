@@ -89,7 +89,7 @@ const Home = () => {
               </div>
               <div>
                 <h3 style={{ margin: 0, fontSize: '1.4rem' }}>Voting Pavilion</h3>
-                <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-main)' }}>Support your favorite candidates in real-time.</p>
+                <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-main)' }}>Support your favorite candidates.</p>
               </div>
             </div>
             <span className="arrow-icon">→</span>
