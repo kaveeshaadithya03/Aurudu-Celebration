@@ -73,9 +73,9 @@ const CandidateForm = () => {
           <label>
             Index Number (Unique)
             <input
-              placeholder="e.g. INDEX123"
+              placeholder="e.g. IT21004455"
               value={form.candidateId}
-              onChange={(e) => setForm({ ...form, candidateId: e.target.value })}
+              onChange={(e) => setForm({ ...form, candidateId: e.target.value.toUpperCase() })}
               required
             />
           </label>

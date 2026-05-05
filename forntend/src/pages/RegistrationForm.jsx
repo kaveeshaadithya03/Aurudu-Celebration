@@ -67,7 +67,7 @@ const RegistrationForm = () => {
             <input
               placeholder="e.g. IT21004455"
               value={form.participantId}
-              onChange={(e) => setForm({ ...form, participantId: e.target.value })}
+              onChange={(e) => setForm({ ...form, participantId: e.target.value.toUpperCase() })}
               required
             />
           </label>

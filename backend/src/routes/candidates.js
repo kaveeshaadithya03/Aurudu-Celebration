@@ -32,10 +32,12 @@ const createCandidatesRouter = (io) => {
 
   router.post("/", upload.single("profilePhoto"), async (req, res) => {
     try {
-      const { candidateId, name, contact, batch, role, age, description } = req.body;
+      let { candidateId, name, contact, batch, role, age, description } = req.body;
       if (!candidateId || !name || !contact || !batch || !role || !age) {
         return res.status(400).json({ error: "All required candidate fields must be provided." });
       }
+
+      candidateId = candidateId.toUpperCase();
 
       // Check if candidate already exists (including rejected)
       const existing = await Candidate.findOne({ candidateId });

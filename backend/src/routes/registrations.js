@@ -7,10 +7,12 @@ const router = express.Router();
 // Public registration
 router.post("/", async (req, res) => {
   try {
-    const { participantId, name, contact, batch, gender, events } = req.body;
+    let { participantId, name, contact, batch, gender, events } = req.body;
     if (!participantId || !name || !contact || !batch || !gender) {
       return res.status(400).json({ error: "All required registration fields must be provided." });
     }
+
+    participantId = participantId.toUpperCase();
 
     if (!/^\d{10}$/.test(contact)) {
       return res.status(400).json({ error: "Contact number must be exactly 10 digits." });
