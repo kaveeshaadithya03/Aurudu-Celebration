@@ -2,6 +2,16 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { fetchCandidateById, voteCandidate, BASE_URL } from "../services/api.js";
 
+const LotusOrnament = ({ className, style }) => (
+  <svg className={className} style={style} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g opacity="0.8">
+      <path d="M50 10C55 30 75 40 50 60C25 40 45 30 50 10Z" fill="var(--gold)" />
+      <path d="M50 20C65 40 85 50 50 75C15 50 35 40 50 20Z" fill="var(--accent-gold)" opacity="0.7" />
+    </g>
+    <circle cx="50" cy="65" r="5" fill="var(--gold)" />
+  </svg>
+);
+
 const CandidateDetail = () => {
   const { id } = useParams();
   const [candidate, setCandidate] = useState(null);
@@ -66,6 +76,7 @@ const CandidateDetail = () => {
   return (
     <section className="profile-detail-container">
       <div className="royal-frame-container">
+        <LotusOrnament style={{ position: 'absolute', top: '-15px', left: '50%', transform: 'translateX(-50%)', width: '40px', height: '40px', zIndex: 10 }} />
         <div className="frame-overlay">
             <div className="corner-ornament top-left"></div>
             <div className="corner-ornament top-right"></div>
